@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEET AI Question Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-indigo-100 to-purple-200 min-h-screen flex items-center justify-center font-sans">
+
+  <div class="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-8">
+    <!-- Header -->
+    <h1 class="text-3xl font-bold text-center text-indigo-700 mb-6">
+      NEET AI Question Generator
+    </h1>
+    <p class="text-center text-gray-500 mb-8">
+      Paste a NEET-style question and get a similar, slightly harder AI-generated practice question.
+    </p>
+
+    <!-- Input Section -->
+    <div>
+      <label for="question" class="block text-sm font-medium text-gray-700 mb-2">
+        Enter NEET Question
+      </label>
+      <textarea id="question" rows="4"
+        class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none"
+        placeholder="Paste your question here..."></textarea>
+    </div>
+
+    <!-- Action Button -->
+    <div class="mt-6 flex justify-center">
+      <button id="generateBtn"
+        class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition">
+        Generate Practice Question
+      </button>
+    </div>
+
+    <!-- Output Section -->
+    <div id="output" class="mt-10 hidden">
+      <h2 class="text-xl font-semibold text-gray-800 mb-4">AI Generated Question:</h2>
+      
+      <!-- Question Text -->
+      <p id="generatedQuestion" class="text-gray-700 mb-6 font-medium"></p>
+
+      <!-- Options (Radio Buttons) -->
+      <form id="optionsForm" class="space-y-3">
+        <label class="flex items-center gap-2">
+          <input type="radio" name="answer" value="A" class="text-indigo-600 focus:ring-indigo-500" />
+          <span id="optionA">Option A</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="radio" name="answer" value="B" class="text-indigo-600 focus:ring-indigo-500" />
+          <span id="optionB">Option B</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="radio" name="answer" value="C" class="text-indigo-600 focus:ring-indigo-500" />
+          <span id="optionC">Option C</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="radio" name="answer" value="D" class="text-indigo-600 focus:ring-indigo-500" />
+          <span id="optionD">Option D</span>
+        </label>
+      </form>
+
+      <!-- Submit Button -->
+      <div class="mt-6 flex justify-center">
+        <button id="submitAnswer"
+          class="px-5 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition">
+          Submit Answer
+        </button>
+      </div>
+
+      <!-- Locked Solution Section -->
+      <div id="solutionSection" class="mt-8">
+        <button id="showSolution"
+          class="px-5 py-2 bg-gray-400 text-white rounded-xl shadow cursor-not-allowed"
+          disabled>
+          🔒 Show Solution (Submit an answer first)
+        </button>
+
+        <!-- Dropdown Container (hidden initially) -->
+        <div id="solutionContainer" class="mt-4 hidden border border-indigo-200 rounded-xl p-4 bg-indigo-50">
+          <p id="generatedAnswer" class="font-semibold text-indigo-700 mb-2"></p>
+          <p id="generatedExplanation" class="text-gray-700"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
+
+
