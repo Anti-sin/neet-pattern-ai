@@ -6,8 +6,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(express.json());
-app.use(express.static("public")); // serve frontend files (index.html, script.js, etc.)
+app.use(express.json()); // serve frontend files (index.html, script.js, etc.)
 
 const API_KEY = process.env.GEMINI_API_KEY;
 
@@ -36,7 +35,7 @@ app.post("/generate", async (req, res) => {
   }
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 import path from "path";
 import { fileURLToPath } from "url";
 
