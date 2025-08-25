@@ -2,132 +2,108 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Question Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pattern-AI Practice</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              base: { bg: "#0b1220", card: "rgba(255,255,255,0.06)", border: "rgba(255,255,255,0.14)" },
+              brand: { 500: "#3b82f6", 600: "#2563eb" }
+            },
+            boxShadow: { glow: "0 0 60px rgba(59,130,246,.25)" }
+          }
+        }
+      }
+    </script>
   </head>
-  <body
-    class="bg-gradient-to-br from-indigo-100 to-purple-200 min-h-screen flex items-center justify-center font-sans"
-  >
-    <div class="w-full max-w-3xl bg-white shadow-xl rounded-2xl p-8">
+  <body class="min-h-screen bg-[radial-gradient(1200px_700px_at_50%_-10%,rgba(59,130,246,0.18),transparent),radial-gradient(900px_500px_at_100%_0%,rgba(139,92,246,0.18),transparent)] text-white">
+    <div class="w-full max-w-5xl mx-auto p-6">
       <!-- Header -->
-      <h1 class="text-3xl font-bold text-center text-indigo-700 mb-6">
-        AI Question Generator
-      </h1>
-      <p class="text-center text-gray-500 mb-8">
-        Paste a question and get a similar, slightly harder AI-generated
-        practice question.
-      </p>
-
-      <!-- Input Section -->
-      <div>
-        <label
-          for="question"
-          class="block text-sm font-medium text-gray-700 mb-2"
-        >
-          Enter Your Question
-        </label>
-        <textarea
-          id="question"
-          rows="4"
-          class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-400 focus:outline-none"
-          placeholder="Paste your question here..."
-        ></textarea>
-      </div>
-
-      <!-- Action Button -->
-      <div class="mt-6 flex justify-center">
-        <button
-          id="generateBtn"
-          class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow-md hover:bg-indigo-700 transition"
-        >
-          Generate Practice Question
-        </button>
-      </div>
-
-      <!-- Output Section -->
-      <div id="output" class="mt-10 hidden">
-        <h2 class="text-xl font-semibold text-gray-800 mb-4">
-          AI Generated Question:
-        </h2>
-
-        <!-- Question Text -->
-        <p id="generatedQuestion" class="text-gray-700 mb-6 font-medium"></p>
-
-        <!-- Options (Radio Buttons) -->
-        <form id="optionsForm" class="space-y-3">
-          <label class="flex items-center gap-2">
-            <input
-              type="radio"
-              name="answer"
-              value="A"
-              class="text-indigo-600 focus:ring-indigo-500"
-            />
-            <span id="optionA">Option A</span>
-          </label>
-          <label class="flex items-center gap-2">
-            <input
-              type="radio"
-              name="answer"
-              value="B"
-              class="text-indigo-600 focus:ring-indigo-500"
-            />
-            <span id="optionB">Option B</span>
-          </label>
-          <label class="flex items-center gap-2">
-            <input
-              type="radio"
-              name="answer"
-              value="C"
-              class="text-indigo-600 focus:ring-indigo-500"
-            />
-            <span id="optionC">Option C</span>
-          </label>
-          <label class="flex items-center gap-2">
-            <input
-              type="radio"
-              name="answer"
-              value="D"
-              class="text-indigo-600 focus:ring-indigo-500"
-            />
-            <span id="optionD">Option D</span>
-          </label>
-        </form>
-
-        <!-- Submit Button -->
-        <div class="mt-6 flex justify-center">
-          <button
-            id="submitAnswer"
-            class="px-5 py-2 bg-green-600 text-white rounded-xl shadow hover:bg-green-700 transition"
-          >
-            Submit Answer
-          </button>
+      <header class="mb-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-500 to-violet-500 shadow-glow"></div>
+          <h1 class="text-2xl font-semibold tracking-tight">PatternAI</h1>
         </div>
+        <span class="text-sm opacity-75">Pattern + Answers</span>
+      </header>
 
-        <!-- Locked Solution Section -->
-        <div id="solutionSection" class="mt-8">
-          <button
-            id="showSolution"
-            class="px-5 py-2 bg-gray-400 text-white rounded-xl shadow cursor-not-allowed"
-            disabled
-          >
-            🔒 Show Solution (Submit an answer first)
-          </button>
+      <!-- Card -->
+      <div class="rounded-2xl border border-base-border bg-base-card/70 backdrop-blur p-5 shadow-glow">
+        <!-- Input -->
+        <label for="question" class="block text-sm opacity-80 mb-2">Enter Your Question</label>
+        <textarea id="question" rows="4" class="w-full rounded-xl border border-base-border bg-black/30 p-4 outline-none focus:border-brand-500" placeholder="Paste your question here…"></textarea>
 
-          <!-- Dropdown Container (hidden initially) -->
-          <div
-            id="solutionContainer"
-            class="mt-4 hidden border border-indigo-200 rounded-xl p-4 bg-indigo-50"
-          >
-            <p
-              id="generatedAnswer"
-              class="font-semibold text-indigo-700 mb-2"
-            ></p>
-            <p id="generatedExplanation" class="text-gray-700"></p>
+        <div class="mt-3 flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+          <div class="flex items-center gap-3">
+            <label class="text-sm opacity-80">Difficulty</label>
+            <select id="difficulty" class="rounded-lg border border-base-border bg-black/30 px-3 py-2 outline-none focus:border-brand-500">
+              <option value="slightly harder" selected>Slightly harder</option>
+              <option value="moderately harder">Moderately harder</option>
+              <option value="challenging">Challenging</option>
+            </select>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button id="generateBtn" class="px-5 py-2 rounded-xl bg-gradient-to-br from-brand-600 to-violet-600 hover:from-brand-500 hover:to-violet-500 transition active:scale-[.99]">
+              Ask & Generate
+            </button>
+            <button id="clearBtn" class="px-4 py-2 rounded-xl border border-base-border hover:bg-white/5">Clear</button>
+            <span id="loading" class="hidden text-sm opacity-80">Generating…</span>
           </div>
         </div>
       </div>
+
+      <!-- Results Grid -->
+      <div id="output" class="mt-6 grid gap-6 md:grid-cols-2 hidden">
+        <!-- Answer panel -->
+        <section class="rounded-2xl border border-base-border bg-base-card/70 backdrop-blur p-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold">AI Answer (Your Question)</h2>
+            <button id="copyAnswerText" class="text-xs rounded-lg border border-base-border px-2.5 py-1.5 hover:bg-white/5">Copy</button>
+          </div>
+          <div id="userAnswer" class="mt-3 whitespace-pre-wrap text-gray-100/90"></div>
+          <div id="userAnswerEmpty" class="mt-3 text-sm opacity-70">The direct answer will appear here.</div>
+        </section>
+
+        <!-- Similar panel -->
+        <section class="rounded-2xl border border-base-border bg-base-card/70 backdrop-blur p-5">
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold">Similar Questions</h2>
+            <button id="copySimilar" class="text-xs rounded-lg border border-base-border px-2.5 py-1.5 hover:bg-white/5">Copy</button>
+          </div>
+          <ul id="similarList" class="mt-3 list-disc pl-5 space-y-2 text-gray-100/90"></ul>
+          <div id="similarEmpty" class="mt-3 text-sm opacity-70">We'll generate practice questions in the same pattern here.</div>
+        </section>
+
+        <!-- MCQ panel (spans full width on small) -->
+        <section class="md:col-span-2 rounded-2xl border border-base-border bg-base-card/70 backdrop-blur p-5">
+          <h2 class="text-lg font-semibold mb-2">Practice MCQ</h2>
+          <p id="generatedQuestion" class="text-gray-100/90 mb-4 font-medium"></p>
+
+          <form id="optionsForm" class="grid gap-2">
+            <label class="flex items-center gap-2"><input type="radio" name="answer" value="A" class="text-brand-600 focus:ring-brand-600"/><span id="optionA">Option A</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="answer" value="B" class="text-brand-600 focus:ring-brand-600"/><span id="optionB">Option B</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="answer" value="C" class="text-brand-600 focus:ring-brand-600"/><span id="optionC">Option C</span></label>
+            <label class="flex items-center gap-2"><input type="radio" name="answer" value="D" class="text-brand-600 focus:ring-brand-600"/><span id="optionD">Option D</span></label>
+          </form>
+
+          <div class="mt-4 flex items-center gap-3">
+            <button id="submitAnswer" class="px-4 py-2 rounded-xl bg-green-600 hover:bg-green-700">Submit Answer</button>
+            <button id="showSolution" class="px-4 py-2 rounded-xl bg-gray-500/70 cursor-not-allowed" disabled>🔒 Show Solution</button>
+            <button id="copyMCQ" class="px-3 py-2 rounded-xl border border-base-border hover:bg-white/5 text-xs">Copy MCQ</button>
+          </div>
+
+          <div id="solutionContainer" class="mt-4 hidden border border-base-border rounded-xl p-4 bg-black/20">
+            <p id="generatedAnswer" class="font-semibold text-brand-500 mb-1"></p>
+            <p id="generatedExplanation" class="text-gray-100/90"></p>
+          </div>
+        </section>
+      </div>
     </div>
-    <script src="script.js"></script>
+
+    <script src="/script.js" type="module"></script>
   </body>
 </html>
