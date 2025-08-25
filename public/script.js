@@ -30,8 +30,8 @@ generateBtn.addEventListener("click", async () => {
   }
 
   const prompt = `
-You are an expert NEET exam tutor.
-Take the following question and generate a similar NEET-style question with slightly more difficulty.
+You are an expert all knowing being who understand and breakdowns concept properly.
+Take the following question and generate a similar style question with slightly more difficulty but similar pattern.
 Also provide 4 answer options (A, B, C, D), the correct answer letter, and an explanation in JSON format.
 
 Question: ${input}
